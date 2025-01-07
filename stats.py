@@ -1,18 +1,18 @@
 import matplotlib.pyplot as plt
 import os
 from datetime import datetime, timedelta
-from telethon.tl.types import Message
+from telethon.tl.types import Message, PeerUser
 from .. import loader, utils
 
 @loader.tds
 class UserStats(loader.Module):
-    """Модуль для подсчёта сообщение пользователя а виде столбчатой диаграммы"""
+    """Модуль для подсчёта сообщений пользователя в виде столбчатой диаграммы"""
 
     strings = {
         "name": "UserStats",
         "no_data": "Нет данных для отображения.",
         "calculating": "Считаю статистику...",
-        "done": "Готово, вот статистика ",
+        "done": "Готово, вот статистика:",
     }
 
     async def client_ready(self, client, db):
@@ -29,12 +29,16 @@ class UserStats(loader.Module):
             await utils.answer(message, "Укажите пользователя (ID или юзернейм).")
             return
 
-        target = await self.client.get_entity(args)
+        try:
+            target = await self.client.get_entity(args if not args.isdigit() else PeerUser(int(args)))
+        except Exception as e:
+            await utils.answer(message, f"Ошибка при поиске пользователя: {str(e)}")
+            return
+
         chat = message.chat_id
 
         await utils.answer(message, self.strings["calculating"])
 
-        # сбор
         now = datetime.now()
         stats = {
             "today": 0,
@@ -64,7 +68,6 @@ class UserStats(loader.Module):
             await utils.answer(message, self.strings["no_data"])
             return
 
-        # График
         labels = ["Сегодня", "Вчера", "Неделя", "Месяц", "Год", "Все время"]
         values = [
             stats["today"],
@@ -77,7 +80,7 @@ class UserStats(loader.Module):
 
         plt.figure(figsize=(10, 6))
         plt.bar(labels, values, color="skyblue")
-        plt.title(f"Статистика сообщений {target.first_name}")
+        plt.title(f"Статистика сообщений {target.first_name or target.id}")
         plt.xlabel("Период")
         plt.ylabel("Количество сообщений")
         plt.grid(axis="y")
