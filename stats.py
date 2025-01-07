@@ -19,10 +19,10 @@ class UserStats(loader.Module):
         self.client = client
 
     @loader.command()
-    async def stats(self, message: Message):
+    async def dstats(self, message: Message):
         """
         Подсчёт статистики сообщений пользователя.
-        .stats <@юзернейм или ID>
+        .dstats <@юзернейм или ID>
         """
         args = utils.get_args_raw(message)
         if not args:
