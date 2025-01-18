@@ -4,7 +4,15 @@ from .. import loader, utils
 
 @loader.tds
 class Gresti(loader.Module):
-    strings = {"name": "Gresti", "enabled": "Начинаем грести эти гребаные деньги лопатой", "disabled": "Нот бизнес.", "invalid_prob": "Укажите вероятность от 0 до 100", "prob_set": "Вероятность установлена на {prob}%"}
+    """Дает возможность грести эти гребаные деньги лопатой"""
+
+    strings = {
+        "name": "Gresti",
+        "enabled": "Начинаем грести эти гребаные деньги лопатой",
+        "disabled": "Нот бизнес.",
+        "invalid_prob": "Укажите вероятность от 0 до 100",
+        "prob_set": "Вероятность установлена на {prob}%",
+    }
 
     async def client_ready(self, client, db):
         self.client = client
@@ -13,6 +21,7 @@ class Gresti(loader.Module):
 
     @loader.command()
     async def gresti(self, message: Message):
+        """Включить/выключить модуль в чате."""
         chat_id = message.chat_id
         if chat_id in self.enabled_chats:
             self.enabled_chats.pop(chat_id, None)
@@ -23,6 +32,7 @@ class Gresti(loader.Module):
 
     @loader.command()
     async def grest(self, message: Message):
+        """Установить вероятность ответа (от 0 до 100)."""
         args = utils.get_args_raw(message)
         if args.isdigit() and 0 <= int(args) <= 100:
             self.reply_probability = int(args)
