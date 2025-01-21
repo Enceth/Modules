@@ -1,3 +1,4 @@
+#да нету тут вирусов
 import random
 from telethon.tl.types import Message
 from .. import loader, utils
