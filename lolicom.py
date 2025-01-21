@@ -1,3 +1,4 @@
+#хули смотришь
 from telethon.tl.functions.messages import ImportChatInviteRequest
 import random
 from .. import loader, utils
