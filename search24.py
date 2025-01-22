@@ -1,4 +1,4 @@
-#meta developer: @Enceth
+# meta developer: @Enceth
 from .. import loader, utils
 
 class Search(loader.Module):
