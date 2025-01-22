@@ -4,7 +4,7 @@ from .. import loader, utils
 
 @loader.tds
 class IrisFarm(loader.Module):
-    """Автофарм с помощью автоотправки """
+    """Автофарм Iris с помощью автоотправки """
 
     strings = {
         "name": "IrisFarm",
@@ -17,7 +17,7 @@ class IrisFarm(loader.Module):
     @loader.command()
     async def autofarm(self, message: Message):
         """Запускает автофарм"""
-        await utils.answer(message, "Запускаю автоферму...")
+        await utils.answer(message, "Запускаю автофарм...")
         
         for i in range(100):  
             schedule_time = datetime.now() + timedelta(hours=4 * (i + 1))
