@@ -1,3 +1,4 @@
+# meta developer: @Enceth
 from datetime import datetime, timedelta
 from telethon.tl.types import Message
 from .. import loader, utils
