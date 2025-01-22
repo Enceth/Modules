@@ -6,12 +6,12 @@ class Search(loader.Module):
     strings = {"name": "Search for U"}
 
     async def ssearchcmd(self, message):
-        """Генерация поисковой ссылки.
+        """Генерация поисковой ссылки track24.
         Использование: .ssearch <текст для поиска>
         """
         args = utils.get_args_raw(message)
         if not args:
-            await message.edit("❌ Укажите текст для поиска!")
+            await message.edit("❌ Укажите текст")
             return
 
         query = "+".join(args.split())
