@@ -6,7 +6,7 @@ from .. import loader, utils
 @loader.tds
 class Lolicom(loader.Module):
     """
-    Рандомные лоли комиксы (даже внутри)
+    Абсолютно рандомные лоли комиксы 
     """
 
     strings = {
