@@ -1,3 +1,4 @@
+# meta developer: @Enceth
 #вирусов нет
 from telethon.tl.functions.messages import ImportChatInviteRequest
 import random
