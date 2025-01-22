@@ -2,7 +2,7 @@
 from .. import loader, utils
 
 class Search(loader.Module):
-    """Модуль для генерации ссылки поиска"""
+    """Модуль для генерации ссыллки track24"""
     strings = {"name": "Search for U"}
 
     async def ssearchcmd(self, message):
