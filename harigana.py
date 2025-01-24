@@ -4,17 +4,17 @@ from .. import loader, utils
 
 @loader.tds
 class HiraganaQuiz(loader.Module):
-    """Тесты для изучения хариганы"""
+    """Тесты для изучения хираганы"""
 
     strings = {
         "name": "HiraganaQuiz",
-        "start_quiz": " Начинаем тест. Введите 'стоп', чтобы закончить.",
-        "correct": " Правильно",
-        "wrong": " Неправильно. Правильный ответ: {}",
+        "start_quiz": "Начинаем тест. Введите 'стоп', чтобы закончить.",
+        "correct": "Правильно",
+        "wrong": "Неправильно. Правильный ответ: {}",
         "stop_quiz": "Тест завершён. Правильных ответов: {}, неправильных: {}.",
     }
 
-    HIRAGANA = {
+ HIRAGANA = {
         "あ": "а", "い": "и", "う": "у", "え": "э", "お": "о",
         "か": "ка", "き": "ки", "く": "ку", "け": "кэ", "こ": "ко",
         "さ": "са", "し": "си", "す": "су", "せ": "сэ", "そ": "со",
@@ -32,14 +32,16 @@ class HiraganaQuiz(loader.Module):
         self.correct_answers = 0
         self.wrong_answers = 0
         self.current_question = None
+        self.quiz_chat_id = None  
 
     async def quizcmd(self, message):
         """Начать тест по хирагане"""
         if self.is_quizzing:
-            await utils.answer(message, " Тест уже запущен. Чтобы закончить напиши стоп")
+            await utils.answer(message, "Тест уже запущен. Чтобы закончить, напишите 'стоп'.")
             return
 
         self.is_quizzing = True
+        self.quiz_chat_id = message.chat_id  
         self.correct_answers = 0
         self.wrong_answers = 0
 
@@ -49,7 +51,7 @@ class HiraganaQuiz(loader.Module):
     async def ask_question(self, message):
         """Начать тест"""
         self.current_question = random.choice(list(self.HIRAGANA.items()))
-        question = self.current_question[0] 
+        question = self.current_question[0]
         await utils.answer(message, f"Как читается этот символ? {question}")
 
     async def watcher(self, message):
@@ -57,17 +59,21 @@ class HiraganaQuiz(loader.Module):
         if not self.is_quizzing or not message.text:
             return
 
+        if message.chat_id != self.quiz_chat_id:
+            return
+
         answer = message.text.strip().lower()
 
         if answer == "стоп":
             self.is_quizzing = False
+            self.quiz_chat_id = None  
             await utils.answer(
                 message,
                 self.strings["stop_quiz"].format(self.correct_answers, self.wrong_answers),
             )
             return
 
-        if answer == self.current_question[1]:  
+        if answer == self.current_question[1]:
             self.correct_answers += 1
             await utils.answer(message, self.strings["correct"])
         else:
