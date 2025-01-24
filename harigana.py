@@ -1,9 +1,10 @@
+# meta developer: @Enceth
 import random
 from .. import loader, utils
 
 @loader.tds
 class HiraganaQuiz(loader.Module):
-    """Тесты для изучения хираганы"""
+    """Тесты для изучения хираганы."""
 
     strings = {
         "name": "HiraganaQuiz",
@@ -37,7 +38,7 @@ class HiraganaQuiz(loader.Module):
     async def quizcmd(self, message):
         """Начать тест по хирагане"""
         if self.is_quizzing:
-            await utils.answer(message, "Тест уже запущен. Чтобы закончить, напишите 'стоп'.")
+            await utils.answer(message, "Тест уже запущен. Чтобы закончить, напишите 'стоп'")
             return
 
         self.is_quizzing = True
