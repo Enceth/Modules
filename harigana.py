@@ -1,4 +1,3 @@
-# meta developer: @Enceth
 import random
 from .. import loader, utils
 
@@ -33,15 +32,17 @@ class HiraganaQuiz(loader.Module):
         self.wrong_answers = 0
         self.current_question = None
         self.quiz_chat_id = None
+        self.quiz_user_id = None  
 
     async def quizcmd(self, message):
-        """Начать тест по хирагане (чтобы остановить пиши"стоп")  """
+        """Начать тест по хирагане"""
         if self.is_quizzing:
             await utils.answer(message, "Тест уже запущен. Чтобы закончить, напишите 'стоп'.")
             return
 
         self.is_quizzing = True
-        self.quiz_chat_id = message.chat_id  
+        self.quiz_chat_id = message.chat_id
+        self.quiz_user_id = message.from_id  
         self.correct_answers = 0
         self.wrong_answers = 0
 
@@ -59,6 +60,9 @@ class HiraganaQuiz(loader.Module):
         if not self.is_quizzing or not message.text:
             return
 
+        if message.from_id != self.quiz_user_id:
+            return
+
         if message.chat_id != self.quiz_chat_id:
             return
 
@@ -67,6 +71,7 @@ class HiraganaQuiz(loader.Module):
         if answer == "стоп":
             self.is_quizzing = False
             self.quiz_chat_id = None  
+            self.quiz_user_id = None  
             await utils.answer(
                 message,
                 self.strings["stop_quiz"].format(self.correct_answers, self.wrong_answers),
