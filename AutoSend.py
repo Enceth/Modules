@@ -45,7 +45,7 @@ class pososihui(loader.Module):
 
     @loader.command()
     async def addafcmd(self, message):
-        """<название> <интервал> <список чатов через запятую> <сообщение> - добавить авторассылку"""
+        """<название> <интервал> <список чатов через запятую без пробелов> <сообщение> - добавить авторассылку"""
         args = utils.get_args_raw(message)
         if not args:
             await utils.answer(message, self.strings["invalid_command"])
