@@ -5,7 +5,7 @@ from telethon.tl.functions.messages import SendMessageRequest
 from .. import loader, utils
 
 class pososihui(loader.Module):
-    """""Модуль для автоматической рассылки сообщений"""
+    """Модуль для автоматической рассылки сообщений"""
 
     strings = {
         "name": "AutoSend",
