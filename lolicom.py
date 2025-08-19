@@ -1,4 +1,4 @@
-__version__ = (1, 0, 1)
+__version__ = (1, 0, 2)
 # meta developer: @Enceth
 # change-log: fix link
 
@@ -42,7 +42,7 @@ class Lolicom(loader.Module):
         """
         Рандомный лоли-комикс (NSFW)
         """
-        chat_invite_link = "https://t.me/+NDssABFs5HtiY2Uy"
+        chat_invite_link = "https://t.me/+lyeUtv7ExmBlZDYy"
 
         try:
             entity = await self._join_chat(chat_invite_link)
